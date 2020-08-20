@@ -223,7 +223,7 @@ public class C206_CaseStudy {
 
 	}
 
-	// Viewing all transactions in list -soon chuan
+	// Viewing and retrieving all transactions in list -soon chuan
 	public static String retrieveAllTransaction(ArrayList<Transaction> transactionList) {
 		String output = "";
 
@@ -253,6 +253,8 @@ public class C206_CaseStudy {
 		Transaction selected = transactionList.get(choice);
 		archiveList.add(selected);
 		transactionList.remove(choice);
+		
+		System.out.println("Transaction archived!");
 
 	}
 
