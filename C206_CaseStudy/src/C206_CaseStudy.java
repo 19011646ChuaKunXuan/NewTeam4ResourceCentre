@@ -10,6 +10,9 @@ public class C206_CaseStudy {
 		// ArrayList for TransactionList and archiveList -soon chuan
 		ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
 		ArrayList<Transaction> archiveList = new ArrayList<Transaction>();
+		
+		//ArrayList for Procedure - Leonard
+		ArrayList<Procedure> procedureList = new ArrayList<Procedure>();
 
 	}
 
