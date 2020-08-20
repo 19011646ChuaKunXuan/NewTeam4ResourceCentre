@@ -7,6 +7,10 @@ public class C206_CaseStudy {
 		// ArrayList for customer - kun xuan
 		ArrayList<Customer> customerList = new ArrayList<Customer>();
 
+		// ArrayList for TransactionList and archiveList -soon chuan
+		ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
+		ArrayList<Transaction> archiveList = new ArrayList<Transaction>();
+
 	}
 
 	// inputting customer before adding - kun xuan
@@ -64,8 +68,53 @@ public class C206_CaseStudy {
 			System.out.println("Invalid customer");
 		}
 	}
-	
-	
-	
+
+	// inputting info for new transaction before adding -soon chuan
+	public static Transaction inputTransaction() {
+		
+		String staffName = Helper.readString("Enter handling Staff: ");
+		String itemTransacted = Helper.readString("Enter description > ");
+		String actionTaken = Helper.readString("Enter description > ");
+
+		Transaction tt = new Transaction(staffName, itemTransacted, actionTaken);
+		return tt;
+
+	}
+
+	// adding new transaction to list -soon chuan
+	public static void addTransaction(ArrayList<Transaction> transactionList, Transaction tt) {
+
+		transactionList.add(tt);
+		System.out.println("New transaction added");
+
+	}
+
+	// Viewing all transactions in list -soon chuan
+	public static String retrieveAllTransaction(ArrayList<Transaction> transactionList) {
+		String output = "";
+
+		for (int i = 0; i < transactionList.size(); i++) {
+
+			output += String.format("%-10s %-30s %-10s\n", transactionList.get(i).toString());
+		}
+		return output;
+	}
+
+	public static void viewAllTransaction(ArrayList<Transaction> transactionList) {
+
+		String output = String.format("%-10s %-30s %-10s\n", "Handling Staff", "Item Transacted", "Action Taken");
+		output += retrieveAllTransaction(transactionList);
+		System.out.println(output);
+	}
+
+	// Archiving selected transaction -soon chuan
+	public static void archiveTransaction(ArrayList<Transaction> transactionList, ArrayList<Transaction> archiveList) {
+
+		int choice = Helper.readInt("Select which transaction to archive: ") - 1;
+		Transaction selected = transactionList.get(choice);
+		archiveList.add(selected);
+		transactionList.remove(choice);
+
+	}
 
 }
