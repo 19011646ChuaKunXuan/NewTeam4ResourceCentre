@@ -3,39 +3,57 @@
 public class product {
 	
 	private String productName;
-	private String category;
 	private double price;
+	private String category;
+	private String brand;
+	private String information;
 	
-	public product(String productName, String category, double price) {
+	public product(String productName, double price, String category, String brand, String information) {
 		this.productName = productName;
-		this.category = category;
 		this.price = price;
+		this.category = category;
+		this.brand = brand;
+		this.information = information;
 	}
-	
-	public String addProduct() {
+
+	public String getProductName() {
 		return productName;
 	}
-	
-	public String getProduct() {
-		return productName;
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
-	
-	public String deleteProduct() {
-		return productName;
-	}
-	
-	public String viewCategory() {
-		return category;
-	}
-	
-	public String getCategory() {
-		return category;
-	}
-	
-	public double setPrice() {
-		return price;
-	}
+
 	public double getPrice() {
 		return price;
 	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	public String getInformation() {
+		return information;
+	}
+
+	public void setInformation(String information) {
+		this.information = information;
+	}
+	
 }

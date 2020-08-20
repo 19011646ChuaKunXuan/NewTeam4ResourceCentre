@@ -126,8 +126,10 @@ public class C206_CaseStudy {
 	public static void addProduct(ArrayList<product> productList) {
 		ArrayList<String> productList1 = new ArrayList<String>();
 		String productName = Helper.readString("Enter a product to add > ");
-		String category = Helper.readString("Enter category of product (meat or veg?) > ");
 		double price = Helper.readDouble("Enter price of product > ");
+		String category = Helper.readString("Enter category of product (meat or veg?) > ");
+		String brand = Helper.readString("Enter a brand of product > ");
+		String information = Helper.readString("Enter product information > ");
 		String product1 = Helper.readString(productName);
 		productList1.add(product1);
 	}
@@ -136,7 +138,7 @@ public class C206_CaseStudy {
 	public static void viewProduct(ArrayList<product> productList) {
 		for (int i = 0; i < productList.size(); i++) {
 			product p = productList.get(i);
-			System.out.println(String.format("%-20s %s  %-20s\n", "productName", "category", "price"));
+			System.out.println(String.format("%-20s %s %-20s %-20s %-20s\n", "productName", "price", "category", "brand", "information"));
 		}
 	}
 
