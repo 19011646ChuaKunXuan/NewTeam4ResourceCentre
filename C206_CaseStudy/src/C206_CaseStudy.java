@@ -223,7 +223,7 @@ public class C206_CaseStudy {
 
 	}
 
-	// Viewing all transactions in list -soon chuan
+	// Viewing and retrieving all transactions in list -soon chuan
 	public static String retrieveAllTransaction(ArrayList<Transaction> transactionList) {
 		String output = "";
 
@@ -241,7 +241,7 @@ public class C206_CaseStudy {
 
 	public static void viewAllTransaction(ArrayList<Transaction> transactionList) {
 
-		String output = String.format("%-10s %-30s %-10s %-10s %-30s\n", "Handling Staff", "Item Transacted", "Action Taken");
+		String output = String.format("%-10s %-30s %-10s %-10s %-30s\n", "Handling Staff", "Customer Name", "Product", "Item Transacted", "Action Taken");
 		output += retrieveAllTransaction(transactionList);
 		System.out.println(output);
 	}
