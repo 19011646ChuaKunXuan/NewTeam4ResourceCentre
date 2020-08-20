@@ -73,10 +73,12 @@ public class C206_CaseStudy {
 	public static Transaction inputTransaction() {
 
 		String staffName = Helper.readString("Enter handling Staff: ");
-		String itemTransacted = Helper.readString("Enter description > ");
-		String actionTaken = Helper.readString("Enter description > ");
+		String customerName = Helper.readString("Enter Customer Name: ");
+		String productItem = Helper.readString("Enter product: ");
+		String itemTransacted = Helper.readString("Enter item transacted: ");
+		String actionTaken = Helper.readString("Enter action taken: ");
 
-		Transaction tt = new Transaction(staffName, itemTransacted, actionTaken);
+		Transaction tt = new Transaction(staffName, customerName, productItem, itemTransacted, actionTaken);
 		return tt;
 
 	}
