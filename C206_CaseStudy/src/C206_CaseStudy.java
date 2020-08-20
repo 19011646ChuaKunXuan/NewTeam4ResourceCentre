@@ -21,6 +21,9 @@ public class C206_CaseStudy {
 		//ArrayList for Procedure - Leonard
 		ArrayList<Procedure> procedureList = new ArrayList<Procedure>();
 		
+		//ArrayList for Product - ShengEn
+		ArrayList<product> productList = new ArrayList<product>();
+		
 		
 		
 		
@@ -74,6 +77,7 @@ public class C206_CaseStudy {
 
 				} else if (option2 == 3) {
 					//archive transaction
+					C206_CaseStudy.viewAllTransaction(transactionList);
 					C206_CaseStudy.archiveTransaction(transactionList, archiveList);
 					
 				} else {
@@ -225,14 +229,19 @@ public class C206_CaseStudy {
 
 		for (int i = 0; i < transactionList.size(); i++) {
 
-			output += String.format("%-10s %-30s %-10s\n", transactionList.get(i).toString());
+			String handlingStaff = transactionList.get(i).getHandlingStaff();
+			String customerName = transactionList.get(i).getCustomerName();
+			String product = transactionList.get(i).getProduct();
+			String itemTransacted = transactionList.get(i).getItemTransacted();
+			String actionTaken = transactionList.get(i).getActionTaken();
+			output += String.format("%-10s %-30s %-10s %-10s %-30s\n", handlingStaff, customerName, product, itemTransacted, actionTaken);
 		}
 		return output;
 	}
 
 	public static void viewAllTransaction(ArrayList<Transaction> transactionList) {
 
-		String output = String.format("%-10s %-30s %-10s\n", "Handling Staff", "Item Transacted", "Action Taken");
+		String output = String.format("%-10s %-30s %-10s %-10s %-30s\n", "Handling Staff", "Customer Name", "Product", "Item Transacted", "Action Taken");
 		output += retrieveAllTransaction(transactionList);
 		System.out.println(output);
 	}
@@ -249,14 +258,13 @@ public class C206_CaseStudy {
 
 	// adding product to arrayList - ShengEn
 	public static void addProduct(ArrayList<product> productList) {
-		ArrayList<String> productList1 = new ArrayList<String>();
 		String productName = Helper.readString("Enter a product to add > ");
 		double price = Helper.readDouble("Enter price of product > ");
 		String category = Helper.readString("Enter category of product (meat or veg?) > ");
 		String brand = Helper.readString("Enter a brand of product > ");
 		String information = Helper.readString("Enter product information > ");
-		String product1 = Helper.readString(productName);
-		productList1.add(product1);
+		product product1 = new product(productName, price, category, brand, information);
+		productList.add(product1);
 	}
 
 	// view product and category - ShengEn
@@ -330,9 +338,9 @@ public class C206_CaseStudy {
 	
 	
 	
-	//MENU CODES
+	//MENU CODES - soon chuan
 	public static void menu() {
-		System.out.println("Select Category > ");
+		System.out.println("Select Category: ");
 		System.out.println("1. Customer");
 		System.out.println("2. Transaction");
 		System.out.println("3. Product");
