@@ -1,6 +1,13 @@
 import java.util.ArrayList;
 
 public class C206_CaseStudy {
+	
+	//MENU CODES
+	private static final int OPTION_CUSTOMER = 1;
+	private static final int OPTION_TRANSACTION = 2;
+	private static final int OPTION_PRODUCT = 3;
+	private static final int OPTION_PROCEDURE = 4;
+	private static final int OPTION_QUIT = 5;
 
 	public static void main(String[] args) {
 
@@ -13,9 +20,127 @@ public class C206_CaseStudy {
 		
 		//ArrayList for Procedure - Leonard
 		ArrayList<Procedure> procedureList = new ArrayList<Procedure>();
+		
+		
+		
+		
+		//MENU CODES - soon chuan
+		int option = 0;
+		int option2 = 0;
 
-	}
+		while (option != OPTION_QUIT) {
 
+			C206_CaseStudy.menu();
+			option = Helper.readInt("Enter an option > ");
+			
+			//For Customer
+			if (option == OPTION_CUSTOMER) {
+				//show customer menu
+				C206_CaseStudy.customerMenu();
+				option2 = Helper.readInt("Enter option to select action > ");
+				
+				if (option2 == 1) {
+					//add customer
+					Customer c = inputCustomer();
+					C206_CaseStudy.addcustomerInfo(customerList, c);
+					
+				} else if (option2 == 2) {
+					//view customer
+					C206_CaseStudy.viewcustomerInfo(customerList);
+					
+				} else if (option2 == 3) {
+					//delete customer
+					C206_CaseStudy.deletecustomerInfo(customerList);
+					
+				} else {
+					System.out.println("Invalid option");
+				}
+				
+			//For Transaction
+			} else if (option == OPTION_TRANSACTION) {
+				// menu		
+				C206_CaseStudy.transactionMenu();
+				
+				option2 = Helper.readInt("Enter option to select action > ");
+
+				if (option2 == 1) {
+					// Add transaction
+					Transaction t = inputTransaction();
+					C206_CaseStudy.addTransaction(transactionList, t);
+
+				} else if (option2 == 2) {
+					// View transactions
+					C206_CaseStudy.viewAllTransaction(transactionList);
+
+				} else if (option2 == 3) {
+					//archive transaction
+					C206_CaseStudy.archiveTransaction(transactionList, archiveList);
+					
+				} else {
+					System.out.println("Invalid option");
+				}
+				
+			//For Product
+			} else if (option == OPTION_PRODUCT) {
+				// add product
+				C206_CaseStudy.productMenu();
+				
+				option2 = Helper.readInt("Enter option to select action > ");
+
+				if (option2 == 1) {
+					// add product
+					//your code abit wrong thats why cannot
+					C206_CaseStudy.addProduct(productList);
+				
+				} else if (option2 == 2) {
+					// view product
+					//your code abit wrong thats why cannot
+					C206_CaseStudy.viewProduct(productList);
+					
+				} else if (option2 == 3) {
+					//delete product
+					//your code abit wrong thats why cannot
+					C206_CaseStudy.deleteProduct(productList);
+					
+				} else {
+					System.out.println("Invalid option");
+				}
+				
+			//For Procedure
+			} else if (option == OPTION_PROCEDURE) {
+				// menu
+				C206_CaseStudy.procedureMenu();
+				
+				option2 = Helper.readInt("Enter option to select action >  ");
+				
+				if (option2 == 1) {
+					// add procedure
+					Procedure p = C206_CaseStudy.AddProcedure();
+					C206_CaseStudy.addProcedure(procedureList, p);
+				
+				} else if (option2 == 2) {
+					// view procedure
+					C206_CaseStudy.ViewProcedure(procedureList);
+					
+				} else if (option2 == 3) {
+					//delete procedure
+					C206_CaseStudy.RemoveProcedure(procedureList);
+					
+				} else {
+					System.out.println("Invalid option");
+				}
+
+			} else if (option == OPTION_QUIT) {
+				System.out.println("Bye!");
+			} else {
+				System.out.println("Invalid option");
+			}
+
+		}
+
+}
+
+	
 	// inputting customer before adding - kun xuan
 	private static Customer inputCustomer() {
 		String name = Helper.readString("Enter customer name: ");
@@ -201,5 +326,46 @@ public class C206_CaseStudy {
 		}
 
 	}
+	
+	
+	
+	
+	//MENU CODES
+	public static void menu() {
+		System.out.println("Select Category > ");
+		System.out.println("1. Customer");
+		System.out.println("2. Transaction");
+		System.out.println("3. Product");
+		System.out.println("4. Procedure");
+		System.out.println("5. Quit");
 
+	}
+	
+	public static void customerMenu() {
+		System.out.println("Select action > ");
+		System.out.println("1. Add Customer");
+		System.out.println("2. View Customer");
+		System.out.println("3. Delete Customer");
+	}
+	
+	public static void transactionMenu() {
+		System.out.println("Select action > ");
+		System.out.println("1. Add Transaction");
+		System.out.println("2. View Transaction");
+		System.out.println("3. Archive Transaction");
+	}
+	
+	public static void productMenu() {
+		System.out.println("Select action > ");
+		System.out.println("1. Add Product");
+		System.out.println("2. View Product");
+		System.out.println("3. Delete Product");
+	}
+	
+	public static void procedureMenu() {
+		System.out.println("Select action > ");
+		System.out.println("1. Add Procedure");
+		System.out.println("2. View Procedure");
+		System.out.println("3. Delete Procedure");
+	}
 }
