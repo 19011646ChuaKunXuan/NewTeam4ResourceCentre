@@ -28,6 +28,13 @@ public class C206_CaseStudyTest {
 
 	private ArrayList<Customer> customerList;
 	
+	// product for test - Sheng En
+	private product p1;
+	private product p2;
+	private product p3;
+	
+	private ArrayList<product> productList;
+	
 	
 
 	@Before
@@ -52,6 +59,13 @@ public class C206_CaseStudyTest {
 		Customer b = new Customer("Soon Chuan", 12345678);
 		
 		customerList = new ArrayList<Customer>();
+		
+		// preparing test data for product - Sheng En 
+		p1 = new product("cauliflower", 3.60, "Veg", "Giant", "1 kilogram");
+		p2 = new product("spring onion", 0.80, "Veg", "Giant", "100 grams");
+		p3 = new product("chicken wings", 2.67, "Meat", "Giant", "300 grams");
+		
+		productList = new ArrayList<product>();
 
 	}
 
@@ -76,6 +90,12 @@ public class C206_CaseStudyTest {
 		a = null;
 		b = null;
 		customerList = null;
+		
+		// for Product - Sheng En
+				p1 = null;
+				p2 = null;
+				p3 = null;
+				productList = null;
 		
 		
 	}
@@ -207,6 +227,36 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.deletecustomerInfo(customerList);
 		assertNotEquals("Test if there if the customer's Information is still in the customerList", 0, customerList);
 	
+	}
+	
+	@Test // - Sheng En
+	public void addProduct() {
+		
+		// test to check for valid arrayList (normal)
+		assertNotNull("Check if there is a valid arraylist to add to", productList);
+		// test to see if length of list is correct (boundary) 
+		assertEquals("Check if procedure list size is same number as procedures added", 2, productList.size());
+		// test if item added is the same as the first item in the list (error)
+		assertSame("Check that product is added already exists in the list", p1, productList.get(0));
+	}
+	
+	@Test // - Sheng En 
+	public void viewProduct() {
+		
+		// test to see if there are products in the list (boundary)
+		assertEquals("Check that there are items in the list", productList.size());
+	}
+	
+	@Test // Sheng En 
+	public void deleteProduct() {
+		
+		// test to see once product removed, list size decreases by 1 (normal)
+		assertEquals("Test if product list becomes empty?", 0, productList.size());
+		// test if the list is empty (boundary) 
+		assertNotNull("Check if there are any products to be deleted", productList);
+		// test that once product is deleted it should no longer be in the list (error)
+		assertNotEquals("Test if there if the deleted product is still available to be displayed", 0, productList);
+		
 	}
 
 }
