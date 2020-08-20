@@ -49,6 +49,7 @@ public class C206_CaseStudyTest {
 	public void tearDown() throws Exception {
 
 		// for transaction - soon chuan
+		tt0 = null;
 		tt1 = null;
 		tt2 = null;
 		transactionList = null;
