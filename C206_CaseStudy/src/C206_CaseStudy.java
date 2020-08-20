@@ -71,7 +71,7 @@ public class C206_CaseStudy {
 
 	// inputting info for new transaction before adding -soon chuan
 	public static Transaction inputTransaction() {
-		
+
 		String staffName = Helper.readString("Enter handling Staff: ");
 		String itemTransacted = Helper.readString("Enter description > ");
 		String actionTaken = Helper.readString("Enter description > ");
@@ -116,7 +116,7 @@ public class C206_CaseStudy {
 		transactionList.remove(choice);
 
 	}
-	
+
 	// adding product to arrayList - ShengEn
 	public static void addProduct(ArrayList<product> productList) {
 		ArrayList<String> productList1 = new ArrayList<String>();
@@ -126,22 +126,73 @@ public class C206_CaseStudy {
 		String product1 = Helper.readString(productName);
 		productList1.add(product1);
 	}
-	
+
 	// view product and category - ShengEn
 	public static void viewProduct(ArrayList<product> productList) {
 		for (int i = 0; i < productList.size(); i++) {
 			product p = productList.get(i);
-			System.out.println(String.format("%-20s %s  %-20s\n", "productName" , "category", "price")); 
+			System.out.println(String.format("%-20s %s  %-20s\n", "productName", "category", "price"));
 		}
 	}
-		
+
 	// delete product - ShengEn
 	public static void deleteProduct(ArrayList<product> productList) {
 		String product2 = Helper.readString("Enter a product to delete > ");
 		for (int j = 0; j < productList.size(); j++) {
 			productList.remove(product2);
 			System.out.println("Item has been deleted!");
+		}
+
 	}
-	
+
+	// View Procedure - Leonard
+	public static String ViewProcedure(ArrayList<Procedure> procedureList) {
+		String output = "";
+		for (int i = 0; i < procedureList.size(); i++) {
+			output += String.format("%-84s \n", procedureList.get(i).toString());
+		}
+		return output;
 	}
+
+	// add procedure and category - Leonard
+	public static Procedure AddProcedure() {
+		String Category = Helper.readString("Enter category > ");
+		String Name = Helper.readString("Enter name > ");
+
+		Procedure p = new Procedure(Category, Name);
+		return p;
+
+	}
+
+	public static void addProcedure(ArrayList<Procedure> procedureList, Procedure p) {
+		procedureList.add(p);
+		System.out.println("Procedure Added");
+	}
+
+	// Delete Procedure - Leonard
+	public static void RemoveProcedure(ArrayList<Procedure> procedureList) {
+		C206_CaseStudy.ViewProcedure(procedureList);
+		String dcategory = Helper.readString("Enter a procedure to delete > ");
+		boolean check = true;
+		int i = 0;
+
+		while (i < procedureList.size()) {
+			if (procedureList.get(i).equals(dcategory)) {
+				check = true;
+				break;
+			} else {
+				check = false;
+			}
+			i++;
+		}
+		if (check == true) {
+			procedureList.remove(i);
+			System.out.println("Successfully deleted procedure");
+		} else {
+			System.out.println("Failed to delete procedure");
+
+		}
+
+	}
+
 }
