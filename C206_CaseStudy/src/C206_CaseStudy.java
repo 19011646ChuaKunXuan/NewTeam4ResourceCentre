@@ -223,7 +223,7 @@ public class C206_CaseStudy {
 
 	}
 
-	// Viewing and retrieving all transactions in list -soon chuan
+	// Viewing all transactions in list -soon chuan
 	public static String retrieveAllTransaction(ArrayList<Transaction> transactionList) {
 		String output = "";
 
@@ -241,7 +241,7 @@ public class C206_CaseStudy {
 
 	public static void viewAllTransaction(ArrayList<Transaction> transactionList) {
 
-		String output = String.format("%-10s %-30s %-10s %-10s %-30s\n", "Handling Staff", "Customer Name", "Product", "Item Transacted", "Action Taken");
+		String output = String.format("%-10s %-30s %-10s %-10s %-30s\n", "Handling Staff", "Item Transacted", "Action Taken");
 		output += retrieveAllTransaction(transactionList);
 		System.out.println(output);
 	}
@@ -254,7 +254,7 @@ public class C206_CaseStudy {
 		archiveList.add(selected);
 		transactionList.remove(choice);
 		
-		System.out.println("Transaction archived!");
+		System.out.println("Transaction Archived!");
 
 	}
 
@@ -262,7 +262,7 @@ public class C206_CaseStudy {
 	public static void addProduct(ArrayList<product> productList) {
 		String productName = Helper.readString("Enter a product to add > ");
 		double price = Helper.readDouble("Enter price of product > ");
-		String category = Helper.readString("Enter category of product (meat or veg?) > ");
+		String category = Helper.readString("Enter category of product > ");
 		String brand = Helper.readString("Enter a brand of product > ");
 		String information = Helper.readString("Enter product information > ");
 		product product1 = new product(productName, price, category, brand, information);
