@@ -36,7 +36,7 @@ public class C206_CaseStudy {
 			} else {
 				System.out.println("Invalid option");
 			}
-		}
+		} 
 	}
 
 	private static Customer inputCustomer() {
