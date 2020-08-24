@@ -80,6 +80,11 @@ public class C206_CaseStudy {
 					C206_CaseStudy.viewAllTransaction(transactionList);
 					C206_CaseStudy.archiveTransaction(transactionList, archiveList);
 					
+				} else if (option2 == 4) {
+					//update transaction
+					C206_CaseStudy.viewAllTransaction(transactionList);
+					C206_CaseStudy.updateTransaction(transactionList);
+					
 				} else {
 					System.out.println("Invalid option");
 				}
@@ -93,17 +98,14 @@ public class C206_CaseStudy {
 
 				if (option2 == 1) {
 					// add product
-					//your code abit wrong thats why cannot
 					C206_CaseStudy.addProduct(productList);
 				
 				} else if (option2 == 2) {
 					// view product
-					//your code abit wrong thats why cannot
 					C206_CaseStudy.viewProduct(productList);
 					
 				} else if (option2 == 3) {
 					//delete product
-					//your code abit wrong thats why cannot
 					C206_CaseStudy.deleteProduct(productList);
 					
 				} else {
@@ -203,14 +205,14 @@ public class C206_CaseStudy {
 
 	// inputting info for new transaction before adding -soon chuan
 	public static Transaction inputTransaction() {
-
-		String staffName = Helper.readString("Enter handling Staff: ");
 		String customerName = Helper.readString("Enter Customer Name: ");
-		String productItem = Helper.readString("Enter product: ");
+		int customerNumber = Helper.readInt("Enter Customer number: ");
+		String staffName = Helper.readString("Enter handling Staff: ");
+		String productType = Helper.readString("Enter product: ");
 		String itemTransacted = Helper.readString("Enter item transacted: ");
 		String actionTaken = Helper.readString("Enter action taken: ");
 
-		Transaction tt = new Transaction(staffName, customerName, productItem, itemTransacted, actionTaken);
+		Transaction tt = new Transaction(customerName, customerNumber, staffName, productType, itemTransacted, actionTaken);
 		return tt;
 
 	}
@@ -228,20 +230,21 @@ public class C206_CaseStudy {
 		String output = "";
 
 		for (int i = 0; i < transactionList.size(); i++) {
-
-			String handlingStaff = transactionList.get(i).getHandlingStaff();
+			
 			String customerName = transactionList.get(i).getCustomerName();
-			String product = transactionList.get(i).getProduct();
+			int customerNumber = transactionList.get(i).getCustomerNumber();
+			String handlingStaff = transactionList.get(i).getHandlingStaff();
+			String productType = transactionList.get(i).getProduct();
 			String itemTransacted = transactionList.get(i).getItemTransacted();
 			String actionTaken = transactionList.get(i).getActionTaken();
-			output += String.format("%-10s %-30s %-10s %-10s %-30s\n", handlingStaff, customerName, product, itemTransacted, actionTaken);
+			output += String.format("%-20s %-20d %-20s %-20s %-20s %-20s\n", customerName, customerNumber, handlingStaff, productType, itemTransacted, actionTaken);
 		}
 		return output;
 	}
 
 	public static void viewAllTransaction(ArrayList<Transaction> transactionList) {
 
-		String output = String.format("%-10s %-30s %-10s %-10s %-30s\n", "Handling Staff", "Customer Name", "Product", "Item Transacted", "Action Taken");
+		String output = String.format("%-20s %-20s %-20s %-20s %-20s %-20s\n", "Customer Name", "Customer Number", "Handling Staff", "Product", "Item Transacted", "Action Taken");
 		output += retrieveAllTransaction(transactionList);
 		System.out.println(output);
 	}
@@ -256,6 +259,32 @@ public class C206_CaseStudy {
 		
 		System.out.println("Transaction Archived!");
 
+	}
+	
+	//Updating existing transactions - soon chuan
+	public static void updateTransaction(ArrayList<Transaction> transactionList) {
+		
+		int choice = Helper.readInt("Select which transaction to update: ") - 1;
+		Transaction selectedUpdate = transactionList.get(choice);
+		
+		String newCustomerName = Helper.readString("Enter updated customer name: ");
+		int newCustomerNumber = Helper.readInt("Enter updated customer number: ");
+		String newHandlingStaffName = Helper.readString("Enter updated handling staff name: ");
+		String newProductType = Helper.readString("Enter updated type of product: ");
+		String newItemTransacted = Helper.readString("Enter updated item transacted: ");
+		String newActionTaken = Helper.readString("Enter updated action taken: ");
+		
+		selectedUpdate.setCustomerName(newCustomerName);
+		selectedUpdate.setCustomerNumber(newCustomerNumber);
+		selectedUpdate.setHandlingStaff(newHandlingStaffName);
+		selectedUpdate.setProduct(newProductType);
+		selectedUpdate.setItemTransacted(newItemTransacted);
+		selectedUpdate.setActionTaken(newActionTaken);
+		
+		transactionList.set(choice, selectedUpdate);
+
+		System.out.println("Transaction successfully update!");
+		
 	}
 
 	// adding product to arrayList - ShengEn
@@ -363,6 +392,7 @@ public class C206_CaseStudy {
 		System.out.println("1. Add Transaction");
 		System.out.println("2. View Transaction");
 		System.out.println("3. Archive Transaction");
+		System.out.println("4. Update Transaction");
 	}
 	
 	public static void productMenu() {

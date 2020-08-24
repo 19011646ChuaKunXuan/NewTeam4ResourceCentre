@@ -1,26 +1,26 @@
 public class Customer {
 
-	private String name;
-	private int number;
-	public Customer(String name, int number) {
-		this.name = name;
-		this.number = number;
+	private String customername;
+	private int customernumber;
+	public Customer(String customername, int customernumber) {
+		this.customername = customername;
+		this.customernumber = customernumber;
 	}
 	
-	public void addName(String name) {
-		this.name = name;
+	public void addName(String customername) {
+		this.customername = customername;
 	}
 	
-	public void addNumber(int number) {
-		this.number = number;
+	public void addNumber(int customernumber) {
+		this.customernumber = customernumber;
 	}
 	
 	public String getName() {
-		return name;
+		return customername;
 	}
 	
 	public int getNumber() {
-		return number;
+		return customernumber;
 	}
 	public String toString() {
 		String output = "";

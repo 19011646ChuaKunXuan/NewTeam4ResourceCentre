@@ -41,9 +41,9 @@ public class C206_CaseStudyTest {
 	public void setUp() throws Exception {
 
 		// preparing test data for Transaction - soon chuan
-		tt0 = new Transaction("John", "Ms Lee", "Biscuit", "Chocolate Biscuit", "Exchange Rejeceted");
-		tt1 = new Transaction("John123", "Ms Lee", "Bread", "White Bread", "Exchange Accepted");
-		tt2 = new Transaction("Mary", "Mr Tan", "Bottle", "Thermal flask", "Exchange Rejected");
+		tt0 = new Transaction("Ms Lim", 87654321, "John", "Biscuit", "Chocolate Biscuit", "Exchange Rejeceted");
+		tt1 = new Transaction("Mr Lee", 24356789, "Mary", "Bread", "White Bread", "Exchange Accepted");
+		tt2 = new Transaction("Mdm Heng", 10912456, "John", "Bottle", "Thermal flask", "Exchange Rejected");
 		transactionList = new ArrayList<Transaction>();
 		transactionList.add(tt0);
 
@@ -141,6 +141,20 @@ public class C206_CaseStudyTest {
 		assertNotSame(currentSize, transactionList.size());
 
 	}
+	
+	@Test // - soon chuan
+	// tests for updating transactions - soon chuan
+	public void updateTransactionTest() {
+		//normal: test that updated transaction does not have the same information previously
+		Transaction ttUpdated = transactionList.get(0);
+		ttUpdated.setActionTaken("Exchange accepted!");
+		
+		assertFalse(transactionList.get(0).equals(ttUpdated));
+		
+		//boundary: test that transaction list is not empty
+		assertNotNull("Test if there is a non-empty transaction arraylist to update existing transactions", transactionList);
+	}
+	
 	
 	@Test // - Leonard
 	public void addProcedureTest() {

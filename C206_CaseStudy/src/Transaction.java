@@ -1,20 +1,19 @@
 
-public class Transaction {
+public class Transaction extends Customer{
 	
 	//Soon Chuan
 	private String handlingStaff;
 	private String itemTransacted;
 	private String actionTaken;
-	private String customerName;
-	private String product;
-	
-	public Transaction(String handlingStaff, String customerName, String product, String itemTransacted, String actionTaken) {
+	private String product;	
 
+	public Transaction(String customername, int customernumber, String handlingStaff, String product, String itemTransacted, String actionTaken) {
+		
+		super(customername, customernumber);
 		this.handlingStaff = handlingStaff;
-		this.customerName = customerName;
-		this.product = product;
 		this.itemTransacted = itemTransacted;
 		this.actionTaken = actionTaken;
+		this.product = product;
 		
 	}
 
@@ -42,14 +41,6 @@ public class Transaction {
 		this.actionTaken = actionTaken;
 	}
 
-	public String getCustomerName() {
-		return customerName;
-	}
-
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
-	}
-
 	public String getProduct() {
 		return product;
 	}
@@ -57,14 +48,30 @@ public class Transaction {
 	public void setProduct(String product) {
 		this.product = product;
 	}
-
 	
+	//linking to customer
+	public void setCustomerName(String customername) {
+		super.addName(customername);
+	}
 	
-
+	public String getCustomerName() {
+		return super.getName();
+	}
 	
+	public void setCustomerNumber(int customernumber) {
+		super.addNumber(customernumber);
+	}
 	
-	
-	
-	
+	public int getCustomerNumber() {
+		return super.getNumber();
+	}
 	
 }
+
+	
+	
+	
+	
+	
+	
+
