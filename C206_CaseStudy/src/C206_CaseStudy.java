@@ -9,19 +9,26 @@ public class C206_CaseStudy {
 	private static final int OPTION_PROCEDURE = 4;
 	private static final int OPTION_QUIT = 5;
 
-	//CUSTOMER MENU CODES - Kun Xuan
+	// CUSTOMER MENU CODES - Kun Xuan
 	private static final int ADD_CUSTOMER = 1;
 	private static final int VIEW_CUSTOMER = 2;
 	private static final int DELTE_CUSTOMER = 3;
 	private static final int RETURN_CUSTOMER = 4;
 	private static final int BONUS = 5;
-	
-	//TRANSACTION MENU CODES - soon chuan
+
+	// TRANSACTION MENU CODES - soon chuan
 	private static final int ADD_TRANSACTION = 1;
 	private static final int VIEW_TRANSACTION = 2;
 	private static final int ARCHIVE_TRANSACTION = 3;
 	private static final int UPDATE_TRANSACTION = 4;
 	
+	//PRODUCT MENU CODES - Sheng En
+	private static final int ADD_PRODUCT = 1;
+	private static final int VIEW_PRODUCT = 2;
+	private static final int DELETE_PRODUCT = 3;
+	private static final int UPDATE_PRODUCT = 4;
+	private static final int RETURN_PRODUCT = 5;
+
 	public static void main(String[] args) {
 
 		// ArrayList for customer - kun xuan
@@ -37,7 +44,7 @@ public class C206_CaseStudy {
 		// ArrayList for Product - ShengEn
 		ArrayList<product> productList = new ArrayList<product>();
 
-		// MENU CODES - soon chuan
+		// MENU CODES - Soon Chuan
 		int option = 0;
 		int option2 = 0;
 
@@ -46,7 +53,7 @@ public class C206_CaseStudy {
 			C206_CaseStudy.menu();
 			option = Helper.readInt("Enter an option > ");
 
-			// For Customer
+			// For Customer - Kun Xuan
 			if (option == OPTION_CUSTOMER) {
 				// show customer menu
 				C206_CaseStudy.customerMenu();
@@ -64,25 +71,23 @@ public class C206_CaseStudy {
 				} else if (option2 == DELTE_CUSTOMER) {
 					// delete customer
 					C206_CaseStudy.deletecustomerInfo(customerList);
-					
+
 				} else if (option2 == RETURN_CUSTOMER) {
 					// view highest return customer
 					C206_CaseStudy.returncustomerInfo(customerList);
 
+				} else if (option2 == BONUS) {
+					// add bonus
+					C206_CaseStudy.viewcustomerInfo(customerList);
+					C206_CaseStudy.addbonusrewards(customerList);
+
 				} else {
+					System.out.println("Invalid option");
 					
-					if (option2 == BONUS) {
-						// add bonus
-						C206_CaseStudy.viewcustomerInfo(customerList);
-						C206_CaseStudy.addbonusrewards(customerList);
+			}
 
-					} else {
-						System.out.println("Invalid option");
-					}
-				}
-
-				
-				// For Transaction
+			
+			// For Transaction - Soon Chuan
 			} else if (option == OPTION_TRANSACTION) {
 				// menu
 				C206_CaseStudy.transactionMenu();
@@ -112,30 +117,42 @@ public class C206_CaseStudy {
 					System.out.println("Invalid option");
 				}
 
-				// For Product
+				
+			// For Product - Sheng En
 			} else if (option == OPTION_PRODUCT) {
 				// add product
 				C206_CaseStudy.productMenu();
 
 				option2 = Helper.readInt("Enter option to select action > ");
 
-				if (option2 == 1) {
+				if (option2 == ADD_PRODUCT) {
 					// add product
-					C206_CaseStudy.addProduct(productList);
+					product p = C206_CaseStudy.getProduct();
+					C206_CaseStudy.addProduct(productList, p);
 
-				} else if (option2 == 2) {
+				} else if (option2 == VIEW_PRODUCT) {
 					// view product
 					C206_CaseStudy.viewProduct(productList);
 
-				} else if (option2 == 3) {
+				} else if (option2 == DELETE_PRODUCT) {
 					// delete product
 					C206_CaseStudy.deleteProduct(productList);
 
+				} else if (option2 == UPDATE_PRODUCT) {
+					//update product
+					C206_CaseStudy.viewProduct(productList);
+					C206_CaseStudy.updateProduct(productList);
+					
+				} else if (option2 == RETURN_PRODUCT) {
+					//conditions for product returns
+					C206_CaseStudy.returnProduct(productList);
+					
 				} else {
 					System.out.println("Invalid option");
 				}
 
-				// For Procedure
+				
+			// For Procedure - Leonard
 			} else if (option == OPTION_PROCEDURE) {
 				// menu
 				C206_CaseStudy.procedureMenu();
@@ -248,8 +265,8 @@ public class C206_CaseStudy {
 				int bonus = Helper.readInt("Enter the customer bonus points: ");
 				customerList.get(i).addBonus(bonus);
 				System.out.println("Customer bonus reward is added");
-                                    break;
-			} 
+				break;
+			}
 		}
 
 	}
@@ -357,14 +374,19 @@ public class C206_CaseStudy {
 	}
 
 	// adding product to arrayList - ShengEn
-	public static void addProduct(ArrayList<product> productList) {
+	public static product getProduct() {
 		String productName = Helper.readString("Enter a product to add > ");
 		double price = Helper.readDouble("Enter price of product > ");
-		String category = Helper.readString("Enter category of product > ");
+		String category = Helper.readString("Enter category of product (food or toiletries?) > ");
 		String brand = Helper.readString("Enter a brand of product > ");
 		String information = Helper.readString("Enter product information > ");
-		product product1 = new product(productName, price, category, brand, information);
-		productList.add(product1);
+		product p = new product(productName, price, category, brand, information);
+		return p;
+	}
+
+	public static void addProduct(ArrayList<product> productList, product p) {
+		productList.add(p);
+
 	}
 
 	// view product and category - ShengEn
@@ -378,12 +400,84 @@ public class C206_CaseStudy {
 
 	// delete product - ShengEn
 	public static void deleteProduct(ArrayList<product> productList) {
-		String product2 = Helper.readString("Enter a product to delete > ");
-		for (int j = 0; j < productList.size(); j++) {
-			productList.remove(product2);
-			System.out.println("Item has been deleted!");
+		C206_CaseStudy.viewProduct(productList);
+		String product = Helper.readString("Enter a product to delete > ");
+		boolean check = true;
+		int j = 0;
+
+		while (j < productList.size()) {
+			if (productList.get(j).equals(product)) {
+				check = true;
+				break;
+			} else {
+				check = false;
+			}
+			j++;
 		}
 
+		if (check == true) {
+			productList.remove(j);
+			System.out.println("Item has been deleted");
+		} else {
+			System.out.println("Error!");
+		}
+	}
+
+	// update product - Sheng En
+	public static void updateProduct(ArrayList<product> productList) {
+
+		String product = Helper.readString("Enter product to update > ");
+		// Find the product
+		int foundIdx = -1;
+		for (int i = 0; i < productList.size(); i++) {
+			product p = productList.get(i);
+			if (p.getProductName() == product) {
+				foundIdx = i;
+				break;
+			}
+		}
+		// If not found, print "No product found" and continue
+		if (foundIdx == -1) {
+			System.out.println("No product found");
+		}
+
+		// Ask staff for updated information
+		String productName = Helper.readString("Enter a product to add > ");
+		double price = Helper.readDouble("Enter price of product > ");
+		String category = Helper.readString("Enter category of product (food or toiletries?) > ");
+		String brand = Helper.readString("Enter a brand of product > ");
+		String information = Helper.readString("Enter product information > ");
+		if (price < 0) {
+			System.out.println("Invalid price");
+		}
+		// Update sales and print "Sales is updated"
+		productList.get(foundIdx).setProductName(product);
+		productList.get(foundIdx).setPrice(price);
+		productList.get(foundIdx).setCategory(category);
+		productList.get(foundIdx).setBrand(brand);
+		productList.get(foundIdx).setInformation(information);
+		System.out.println("Product information has been updated!");
+	}
+
+	// conditional returns of product - Sheng En
+	public static void returnProduct(ArrayList<product> productList) {
+		String product = Helper.readString("Enter product to return > ");
+		// Find the product
+		int foundIdx = -1;
+		for (int i = 0; i < productList.size(); i++) {
+			product p = productList.get(i);
+			if (p.getCategory() == "food") {
+				System.out.println("Item cannot be returned!");
+				break;
+
+			} else {
+				System.out.println("Item may be returned!");
+			}
+
+		}
+		if (foundIdx == -1) {
+			System.out.println("No such product");
+		}
 	}
 
 	// View Procedure - Leonard
@@ -469,6 +563,8 @@ public class C206_CaseStudy {
 		System.out.println("1. Add Product");
 		System.out.println("2. View Product");
 		System.out.println("3. Delete Product");
+		System.out.println("4. Update Product");
+		System.out.println("5. Product Return Conditions");
 	}
 
 	public static void procedureMenu() {
