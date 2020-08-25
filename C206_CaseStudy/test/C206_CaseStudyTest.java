@@ -240,7 +240,32 @@ public class C206_CaseStudyTest {
 		// when deleted, it should no longer be on the list (error)
 		C206_CaseStudy.deletecustomerInfo(customerList);
 		assertNotEquals("Test if there if the customer's Information is still in the customerList", 0, customerList);
+		
+	}
 	
+	@Test // - kun xuan 
+	public void returncustomerInfo() {
+		// There should be the same amount of information when return (normal)
+		C206_CaseStudy.returncustomerInfo(customerList);
+		C206_CaseStudy.addcustomerInfo(customerList,a);
+		assertEquals("Test if there is the same amount of customer", 1, customerList.size());
+		//Customer information list cannot be null before viewing the customer information (Boundary)
+		assertNotNull("Check if there is valid customer arraylist to add to", customerList);
+		//if the item does not exist, it should not be viewed (Error)	
+		String testoutput = "";
+		assertEquals("Test if customer information can be viewed if it is not available", testoutput, C206_CaseStudy.retrieveAllCustomerInformation(customerList));
+	}
+	
+	@Test //- kun xuan
+	public void addbonusrewardsInfo() {
+		// Test if a negative number can be added as bonus (boundary)
+		C206_CaseStudy.addbonusrewards(customerList);
+		assertEquals("Test if the amount can be negative", -1, a);
+	    // After adding bonus to the customer, it should increase (normal)
+		C206_CaseStudy.addbonusrewards(customerList);
+		assertNotEquals("Test if there is any customer information arraylist that can be viewed", 0, customerList);
+		//	If the bonus is null, it  should flag out exception error (error)
+		assertNotNull("Check if there is valid customer arraylist to add to", customerList);
 	}
 	
 	@Test // - Sheng En

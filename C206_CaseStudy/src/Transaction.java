@@ -65,7 +65,7 @@ public class Transaction extends Customer{
 	public int getCustomerNumber() {
 		return super.getNumber();
 	}
-	
+
 }
 
 	

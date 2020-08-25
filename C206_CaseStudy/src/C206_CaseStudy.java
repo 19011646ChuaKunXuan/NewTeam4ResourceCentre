@@ -148,60 +148,93 @@ public class C206_CaseStudy {
 
 	
 	// inputting customer before adding - kun xuan
-	private static Customer inputCustomer() {
-		String name = Helper.readString("Enter customer name: ");
-		int number = Helper.readInt("Enter customr number: ");
-		Customer c = new Customer(name, number);
-		return c;
-	}
-
-	// adding of customer - kun xuan
-	public static void addcustomerInfo(ArrayList<Customer> customerList, Customer c) {
-		customerList.add(c);
-		System.out.println("Customer is added");
-	}
-
-	// viewing customers - kun xuan
-	public static String retrieveAllCustomerInformation(ArrayList<Customer> customerList) {
-		String output = "";
-		for (int i = 0; i < customerList.size(); i++) {
-			Customer Cust = customerList.get(i);
-
+		private static Customer inputCustomer() {
+			String name = Helper.readString("Enter customer name: ");
+			int number = Helper.readInt("Enter customr number: ");
+			int bonus = Helper.readInt("Enter customer points: ");
+			Customer c = new Customer(name, number, bonus);
+			return c;
 		}
-		return output;
-	}
 
-	public static void viewcustomerInfo(ArrayList<Customer> customerList) {
-		String output = String.format("%-10s %-10s\n", "Name", "Number");
-		for (int i = 0; i < customerList.size(); i++) {
-			output += String.format(customerList.get(i).toString());
+		// adding of customer - kun xuan
+		public static void addcustomerInfo(ArrayList<Customer> customerList, Customer c) {
+			customerList.add(c);
+			System.out.println("Customer is added");
 		}
-		System.out.println(output);
-	}
 
-	// deleting customers - kun xuan
-	public static void deletecustomerInfo(ArrayList<Customer> customerList) {
-		C206_CaseStudy.viewcustomerInfo(customerList);
-		String dname = Helper.readString("Enter a customer name to delete > ");
-		boolean check = true;
-		int i = 0;
+		// viewing customers - kun xuan
+		public static String retrieveAllCustomerInformation(ArrayList<Customer> customerList) {
+			String output = "";
+			for (int i = 0; i < customerList.size(); i++) {
+				Customer Cust = customerList.get(i);
 
-		while (i < customerList.size()) {
-			if (customerList.get(i).getName().equals(dname)) {
-				check = true;
-				break;
-			} else {
-				check = false;
 			}
-			i++;
+			return output;
 		}
-		if (check == true) {
-			customerList.remove(i);
-			System.out.println("Customer has been deleted");
-		} else {
-			System.out.println("Invalid customer");
+
+		public static void viewcustomerInfo(ArrayList<Customer> customerList) {
+			String output = String.format("%-10s %-10s %-10s\n", "Name", "Number", "Points");
+			for (int i = 0; i < customerList.size(); i++) {
+				output += String.format(customerList.get(i).toString());
+			}
+			System.out.println(output);
 		}
-	}
+
+		// deleting customers - kun xuan
+		public static void deletecustomerInfo(ArrayList<Customer> customerList) {
+			C206_CaseStudy.viewcustomerInfo(customerList);
+			String dname = Helper.readString("Enter a customer name to delete > ");
+			boolean check = true;
+			int i = 0;
+
+			while (i < customerList.size()) {
+				if (customerList.get(i).getName().equals(dname)) {
+					check = true;
+					break;
+				} else {
+					check = false;
+				}
+				i++;
+			}
+			if (check == true) {
+				customerList.remove(i);
+				System.out.println("Customer has been deleted");
+			} else {
+				System.out.println("Invalid customer");
+			}
+		}
+
+	    // returning customer info - Kun Xuan
+		public static void returncustomerInfo(ArrayList<Customer> customerList) {
+			Customer highestBonusPoints = customerList.get(0);
+			for (int i = 0; i < customerList.size(); i++) {
+				Customer cus = customerList.get(i);
+				if (cus.getBonus() > highestBonusPoints.getBonus()) {
+					highestBonusPoints = cus;
+				}
+			}
+			System.out.println("The top customer is: " + highestBonusPoints.getName());
+			System.out.println("Top Customer bonus points: " + highestBonusPoints.getBonus());
+
+		}
+
+	    // adding bonus point to customer - Kun Xuan
+		public static void addbonusrewards(ArrayList<Customer> customerList) {
+			String name = Helper.readString("Enter the customer name: ");
+			for (int i = 0; i < customerList.size(); i++) {
+				if (name.equals(customerList.get(i).getName())) {
+					int bonus = Helper.readInt("Enter the customer bonus points: ");
+					customerList.get(i).addBonus(bonus);
+					System.out.println("Customer bonus reward is added");
+				} else {
+					System.out.println("Name is incorrect, please try again later. ");
+
+				}
+			}
+
+		}
+	
+	
 
 	// inputting info for new transaction before adding -soon chuan
 	public static Transaction inputTransaction() {
@@ -264,26 +297,33 @@ public class C206_CaseStudy {
 	//Updating existing transactions - soon chuan
 	public static void updateTransaction(ArrayList<Transaction> transactionList) {
 		
-		int choice = Helper.readInt("Select which transaction to update: ") - 1;
-		Transaction selectedUpdate = transactionList.get(choice);
-		
-		String newCustomerName = Helper.readString("Enter updated customer name: ");
-		int newCustomerNumber = Helper.readInt("Enter updated customer number: ");
-		String newHandlingStaffName = Helper.readString("Enter updated handling staff name: ");
-		String newProductType = Helper.readString("Enter updated type of product: ");
-		String newItemTransacted = Helper.readString("Enter updated item transacted: ");
-		String newActionTaken = Helper.readString("Enter updated action taken: ");
-		
-		selectedUpdate.setCustomerName(newCustomerName);
-		selectedUpdate.setCustomerNumber(newCustomerNumber);
-		selectedUpdate.setHandlingStaff(newHandlingStaffName);
-		selectedUpdate.setProduct(newProductType);
-		selectedUpdate.setItemTransacted(newItemTransacted);
-		selectedUpdate.setActionTaken(newActionTaken);
-		
-		transactionList.set(choice, selectedUpdate);
+		if (transactionList != null) {
+			
+			int choice = Helper.readInt("Select which transaction to update: ") - 1;
+			Transaction selectedUpdate = transactionList.get(choice);
+			
+			String newCustomerName = Helper.readString("Enter updated customer name: ");
+			int newCustomerNumber = Helper.readInt("Enter updated customer number: ");
+			String newHandlingStaffName = Helper.readString("Enter updated handling staff name: ");
+			String newProductType = Helper.readString("Enter updated type of product: ");
+			String newItemTransacted = Helper.readString("Enter updated item transacted: ");
+			String newActionTaken = Helper.readString("Enter updated action taken: ");
+			
+			selectedUpdate.setCustomerName(newCustomerName);
+			selectedUpdate.setCustomerNumber(newCustomerNumber);
+			selectedUpdate.setHandlingStaff(newHandlingStaffName);
+			selectedUpdate.setProduct(newProductType);
+			selectedUpdate.setItemTransacted(newItemTransacted);
+			selectedUpdate.setActionTaken(newActionTaken);
+			
+			transactionList.set(choice, selectedUpdate);
 
-		System.out.println("Transaction successfully update!");
+			System.out.println("Transaction successfully update!");
+			
+		} else {
+			System.out.println("There are no transactions to update!");
+			
+		}
 		
 	}
 
