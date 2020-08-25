@@ -1,14 +1,27 @@
 import java.util.ArrayList;
 
 public class C206_CaseStudy {
-	
-	//MENU CODES
+
+	// MENU CODES
 	private static final int OPTION_CUSTOMER = 1;
 	private static final int OPTION_TRANSACTION = 2;
 	private static final int OPTION_PRODUCT = 3;
 	private static final int OPTION_PROCEDURE = 4;
 	private static final int OPTION_QUIT = 5;
 
+	//CUSTOMER MENU CODES - Kun Xuan
+	private static final int ADD_CUSTOMER = 1;
+	private static final int VIEW_CUSTOMER = 2;
+	private static final int DELTE_CUSTOMER = 3;
+	private static final int RETURN_CUSTOMER = 4;
+	private static final int BONUS = 5;
+	
+	//TRANSACTION MENU CODES - soon chuan
+	private static final int ADD_TRANSACTION = 1;
+	private static final int VIEW_TRANSACTION = 2;
+	private static final int ARCHIVE_TRANSACTION = 3;
+	private static final int UPDATE_TRANSACTION = 4;
+	
 	public static void main(String[] args) {
 
 		// ArrayList for customer - kun xuan
@@ -17,17 +30,14 @@ public class C206_CaseStudy {
 		// ArrayList for TransactionList and archiveList -soon chuan
 		ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
 		ArrayList<Transaction> archiveList = new ArrayList<Transaction>();
-		
-		//ArrayList for Procedure - Leonard
+
+		// ArrayList for Procedure - Leonard
 		ArrayList<Procedure> procedureList = new ArrayList<Procedure>();
-		
-		//ArrayList for Product - ShengEn
+
+		// ArrayList for Product - ShengEn
 		ArrayList<product> productList = new ArrayList<product>();
-		
-		
-		
-		
-		//MENU CODES - soon chuan
+
+		// MENU CODES - soon chuan
 		int option = 0;
 		int option2 = 0;
 
@@ -35,103 +45,116 @@ public class C206_CaseStudy {
 
 			C206_CaseStudy.menu();
 			option = Helper.readInt("Enter an option > ");
-			
-			//For Customer
+
+			// For Customer
 			if (option == OPTION_CUSTOMER) {
-				//show customer menu
+				// show customer menu
 				C206_CaseStudy.customerMenu();
 				option2 = Helper.readInt("Enter option to select action > ");
-				
-				if (option2 == 1) {
-					//add customer
+
+				if (option2 == ADD_CUSTOMER) {
+					// add customer
 					Customer c = inputCustomer();
 					C206_CaseStudy.addcustomerInfo(customerList, c);
-					
-				} else if (option2 == 2) {
-					//view customer
+
+				} else if (option2 == VIEW_CUSTOMER) {
+					// view customer
 					C206_CaseStudy.viewcustomerInfo(customerList);
-					
-				} else if (option2 == 3) {
-					//delete customer
+
+				} else if (option2 == DELTE_CUSTOMER) {
+					// delete customer
 					C206_CaseStudy.deletecustomerInfo(customerList);
 					
+				} else if (option2 == RETURN_CUSTOMER) {
+					// view highest return customer
+					C206_CaseStudy.returncustomerInfo(customerList);
+
 				} else {
-					System.out.println("Invalid option");
+					
+					if (option2 == BONUS) {
+						// add bonus
+						C206_CaseStudy.viewcustomerInfo(customerList);
+						C206_CaseStudy.addbonusrewards(customerList);
+
+					} else {
+						System.out.println("Invalid option");
+					}
 				}
+
 				
-			//For Transaction
+				// For Transaction
 			} else if (option == OPTION_TRANSACTION) {
-				// menu		
+				// menu
 				C206_CaseStudy.transactionMenu();
-				
+
 				option2 = Helper.readInt("Enter option to select action > ");
 
-				if (option2 == 1) {
+				if (option2 == ADD_TRANSACTION) {
 					// Add transaction
 					Transaction t = inputTransaction();
 					C206_CaseStudy.addTransaction(transactionList, t);
 
-				} else if (option2 == 2) {
+				} else if (option2 == VIEW_TRANSACTION) {
 					// View transactions
 					C206_CaseStudy.viewAllTransaction(transactionList);
 
-				} else if (option2 == 3) {
-					//archive transaction
+				} else if (option2 == ARCHIVE_TRANSACTION) {
+					// archive transaction
 					C206_CaseStudy.viewAllTransaction(transactionList);
 					C206_CaseStudy.archiveTransaction(transactionList, archiveList);
-					
-				} else if (option2 == 4) {
-					//update transaction
+
+				} else if (option2 == UPDATE_TRANSACTION) {
+					// update transaction
 					C206_CaseStudy.viewAllTransaction(transactionList);
 					C206_CaseStudy.updateTransaction(transactionList);
-					
+
 				} else {
 					System.out.println("Invalid option");
 				}
-				
-			//For Product
+
+				// For Product
 			} else if (option == OPTION_PRODUCT) {
 				// add product
 				C206_CaseStudy.productMenu();
-				
+
 				option2 = Helper.readInt("Enter option to select action > ");
 
 				if (option2 == 1) {
 					// add product
 					C206_CaseStudy.addProduct(productList);
-				
+
 				} else if (option2 == 2) {
 					// view product
 					C206_CaseStudy.viewProduct(productList);
-					
+
 				} else if (option2 == 3) {
-					//delete product
+					// delete product
 					C206_CaseStudy.deleteProduct(productList);
-					
+
 				} else {
 					System.out.println("Invalid option");
 				}
-				
-			//For Procedure
+
+				// For Procedure
 			} else if (option == OPTION_PROCEDURE) {
 				// menu
 				C206_CaseStudy.procedureMenu();
-				
+
 				option2 = Helper.readInt("Enter option to select action >  ");
-				
+
 				if (option2 == 1) {
 					// add procedure
 					Procedure p = C206_CaseStudy.AddProcedure();
 					C206_CaseStudy.addProcedure(procedureList, p);
-				
+
 				} else if (option2 == 2) {
 					// view procedure
 					C206_CaseStudy.ViewProcedure(procedureList);
-					
+
 				} else if (option2 == 3) {
-					//delete procedure
+					// delete procedure
 					C206_CaseStudy.RemoveProcedure(procedureList);
-					
+
 				} else {
 					System.out.println("Invalid option");
 				}
@@ -144,97 +167,94 @@ public class C206_CaseStudy {
 
 		}
 
-}
+	}
 
-	
 	// inputting customer before adding - kun xuan
-		private static Customer inputCustomer() {
-			String name = Helper.readString("Enter customer name: ");
-			int number = Helper.readInt("Enter customr number: ");
-			int bonus = Helper.readInt("Enter customer points: ");
-			Customer c = new Customer(name, number, bonus);
-			return c;
+	private static Customer inputCustomer() {
+		String name = Helper.readString("Enter customer name: ");
+		int number = Helper.readInt("Enter customr number: ");
+		int bonus = Helper.readInt("Enter customer points: ");
+		Customer c = new Customer(name, number, bonus);
+		return c;
+	}
+
+	// adding of customer - kun xuan
+	public static void addcustomerInfo(ArrayList<Customer> customerList, Customer c) {
+		customerList.add(c);
+		System.out.println("Customer is added");
+	}
+
+	// viewing customers - kun xuan
+	public static String retrieveAllCustomerInformation(ArrayList<Customer> customerList) {
+		String output = "";
+		for (int i = 0; i < customerList.size(); i++) {
+			Customer Cust = customerList.get(i);
+
 		}
+		return output;
+	}
 
-		// adding of customer - kun xuan
-		public static void addcustomerInfo(ArrayList<Customer> customerList, Customer c) {
-			customerList.add(c);
-			System.out.println("Customer is added");
+	public static void viewcustomerInfo(ArrayList<Customer> customerList) {
+		String output = String.format("%-10s %-10s %-10s\n", "Name", "Number", "Points");
+		for (int i = 0; i < customerList.size(); i++) {
+			output += String.format(customerList.get(i).toString());
 		}
+		System.out.println(output);
+	}
 
-		// viewing customers - kun xuan
-		public static String retrieveAllCustomerInformation(ArrayList<Customer> customerList) {
-			String output = "";
-			for (int i = 0; i < customerList.size(); i++) {
-				Customer Cust = customerList.get(i);
+	// deleting customers - kun xuan
+	public static void deletecustomerInfo(ArrayList<Customer> customerList) {
+		C206_CaseStudy.viewcustomerInfo(customerList);
+		String dname = Helper.readString("Enter a customer name to delete > ");
+		boolean check = true;
+		int i = 0;
 
-			}
-			return output;
-		}
-
-		public static void viewcustomerInfo(ArrayList<Customer> customerList) {
-			String output = String.format("%-10s %-10s %-10s\n", "Name", "Number", "Points");
-			for (int i = 0; i < customerList.size(); i++) {
-				output += String.format(customerList.get(i).toString());
-			}
-			System.out.println(output);
-		}
-
-		// deleting customers - kun xuan
-		public static void deletecustomerInfo(ArrayList<Customer> customerList) {
-			C206_CaseStudy.viewcustomerInfo(customerList);
-			String dname = Helper.readString("Enter a customer name to delete > ");
-			boolean check = true;
-			int i = 0;
-
-			while (i < customerList.size()) {
-				if (customerList.get(i).getName().equals(dname)) {
-					check = true;
-					break;
-				} else {
-					check = false;
-				}
-				i++;
-			}
-			if (check == true) {
-				customerList.remove(i);
-				System.out.println("Customer has been deleted");
+		while (i < customerList.size()) {
+			if (customerList.get(i).getName().equals(dname)) {
+				check = true;
+				break;
 			} else {
-				System.out.println("Invalid customer");
+				check = false;
+			}
+			i++;
+		}
+		if (check == true) {
+			customerList.remove(i);
+			System.out.println("Customer has been deleted");
+		} else {
+			System.out.println("Invalid customer");
+		}
+	}
+
+	// returning customer info - Kun Xuan
+	public static void returncustomerInfo(ArrayList<Customer> customerList) {
+		Customer highestBonusPoints = customerList.get(0);
+		for (int i = 0; i < customerList.size(); i++) {
+			Customer cus = customerList.get(i);
+			if (cus.getBonus() > highestBonusPoints.getBonus()) {
+				highestBonusPoints = cus;
+			}
+		}
+		System.out.println("The top customer is: " + highestBonusPoints.getName());
+		System.out.println("Top Customer bonus points: " + highestBonusPoints.getBonus());
+
+	}
+
+	// adding bonus point to customer - Kun Xuan
+	public static void addbonusrewards(ArrayList<Customer> customerList) {
+		String name = Helper.readString("Enter the customer name: ");
+		for (int i = 0; i < customerList.size(); i++) {
+			if (name.equals(customerList.get(i).getName())) {
+				int bonus = Helper.readInt("Enter the customer bonus points: ");
+				customerList.get(i).addBonus(bonus);
+				System.out.println("Customer bonus reward is added");
+			} else {
+				System.out.println("Name is incorrect, please try again later. ");
+
 			}
 		}
 
-	    // returning customer info - Kun Xuan
-		public static void returncustomerInfo(ArrayList<Customer> customerList) {
-			Customer highestBonusPoints = customerList.get(0);
-			for (int i = 0; i < customerList.size(); i++) {
-				Customer cus = customerList.get(i);
-				if (cus.getBonus() > highestBonusPoints.getBonus()) {
-					highestBonusPoints = cus;
-				}
-			}
-			System.out.println("The top customer is: " + highestBonusPoints.getName());
-			System.out.println("Top Customer bonus points: " + highestBonusPoints.getBonus());
-
-		}
-
-	    // adding bonus point to customer - Kun Xuan
-		public static void addbonusrewards(ArrayList<Customer> customerList) {
-			String name = Helper.readString("Enter the customer name: ");
-			for (int i = 0; i < customerList.size(); i++) {
-				if (name.equals(customerList.get(i).getName())) {
-					int bonus = Helper.readInt("Enter the customer bonus points: ");
-					customerList.get(i).addBonus(bonus);
-					System.out.println("Customer bonus reward is added");
-				} else {
-					System.out.println("Name is incorrect, please try again later. ");
-
-				}
-			}
-
-		}
-	
-	
+	}
 
 	// inputting info for new transaction before adding -soon chuan
 	public static Transaction inputTransaction() {
@@ -245,7 +265,8 @@ public class C206_CaseStudy {
 		String itemTransacted = Helper.readString("Enter item transacted: ");
 		String actionTaken = Helper.readString("Enter action taken: ");
 
-		Transaction tt = new Transaction(customerName, customerNumber, staffName, productType, itemTransacted, actionTaken);
+		Transaction tt = new Transaction(customerName, customerNumber, staffName, productType, itemTransacted,
+				actionTaken);
 		return tt;
 
 	}
@@ -263,21 +284,23 @@ public class C206_CaseStudy {
 		String output = "";
 
 		for (int i = 0; i < transactionList.size(); i++) {
-			
+
 			String customerName = transactionList.get(i).getCustomerName();
 			int customerNumber = transactionList.get(i).getCustomerNumber();
 			String handlingStaff = transactionList.get(i).getHandlingStaff();
 			String productType = transactionList.get(i).getProduct();
 			String itemTransacted = transactionList.get(i).getItemTransacted();
 			String actionTaken = transactionList.get(i).getActionTaken();
-			output += String.format("%-20s %-20d %-20s %-20s %-20s %-20s\n", customerName, customerNumber, handlingStaff, productType, itemTransacted, actionTaken);
+			output += String.format("%-20s %-20d %-20s %-20s %-20s %-20s\n", customerName, customerNumber,
+					handlingStaff, productType, itemTransacted, actionTaken);
 		}
 		return output;
 	}
 
 	public static void viewAllTransaction(ArrayList<Transaction> transactionList) {
 
-		String output = String.format("%-20s %-20s %-20s %-20s %-20s %-20s\n", "Customer Name", "Customer Number", "Handling Staff", "Product", "Item Transacted", "Action Taken");
+		String output = String.format("%-20s %-20s %-20s %-20s %-20s %-20s\n", "Customer Name", "Customer Number",
+				"Handling Staff", "Product", "Item Transacted", "Action Taken");
 		output += retrieveAllTransaction(transactionList);
 		System.out.println(output);
 	}
@@ -285,46 +308,54 @@ public class C206_CaseStudy {
 	// Archiving selected transaction -soon chuan
 	public static void archiveTransaction(ArrayList<Transaction> transactionList, ArrayList<Transaction> archiveList) {
 
-		int choice = Helper.readInt("Select which transaction to archive: ") - 1;
-		Transaction selected = transactionList.get(choice);
-		archiveList.add(selected);
-		transactionList.remove(choice);
-		
-		System.out.println("Transaction Archived!");
+		if (transactionList != null) {
+
+			int choice = Helper.readInt("Select which transaction to archive: ") - 1;
+			Transaction selected = transactionList.get(choice);
+			archiveList.add(selected);
+			transactionList.remove(choice);
+
+			System.out.println("Transaction Archived!");
+
+		} else {
+
+			System.out.println("There are no transactions to archive");
+
+		}
 
 	}
-	
-	//Updating existing transactions - soon chuan
+
+	// Updating existing transactions - soon chuan
 	public static void updateTransaction(ArrayList<Transaction> transactionList) {
-		
+
 		if (transactionList != null) {
-			
+
 			int choice = Helper.readInt("Select which transaction to update: ") - 1;
 			Transaction selectedUpdate = transactionList.get(choice);
-			
+
 			String newCustomerName = Helper.readString("Enter updated customer name: ");
 			int newCustomerNumber = Helper.readInt("Enter updated customer number: ");
 			String newHandlingStaffName = Helper.readString("Enter updated handling staff name: ");
 			String newProductType = Helper.readString("Enter updated type of product: ");
 			String newItemTransacted = Helper.readString("Enter updated item transacted: ");
 			String newActionTaken = Helper.readString("Enter updated action taken: ");
-			
+
 			selectedUpdate.setCustomerName(newCustomerName);
 			selectedUpdate.setCustomerNumber(newCustomerNumber);
 			selectedUpdate.setHandlingStaff(newHandlingStaffName);
 			selectedUpdate.setProduct(newProductType);
 			selectedUpdate.setItemTransacted(newItemTransacted);
 			selectedUpdate.setActionTaken(newActionTaken);
-			
+
 			transactionList.set(choice, selectedUpdate);
 
 			System.out.println("Transaction successfully update!");
-			
+
 		} else {
 			System.out.println("There are no transactions to update!");
-			
+
 		}
-		
+
 	}
 
 	// adding product to arrayList - ShengEn
@@ -342,7 +373,8 @@ public class C206_CaseStudy {
 	public static void viewProduct(ArrayList<product> productList) {
 		for (int i = 0; i < productList.size(); i++) {
 			product p = productList.get(i);
-			System.out.println(String.format("%-20s %s %-20s %-20s %-20s\n", "productName", "price", "category", "brand", "information"));
+			System.out.println(String.format("%-20s %s %-20s %-20s %-20s\n", "productName", "price", "category",
+					"brand", "information"));
 		}
 	}
 
@@ -405,11 +437,8 @@ public class C206_CaseStudy {
 		}
 
 	}
-	
-	
-	
-	
-	//MENU CODES - soon chuan
+
+	// MENU CODES - soon chuan
 	public static void menu() {
 		System.out.println("Select Category: ");
 		System.out.println("1. Customer");
@@ -419,14 +448,16 @@ public class C206_CaseStudy {
 		System.out.println("5. Quit");
 
 	}
-	
+
 	public static void customerMenu() {
 		System.out.println("Select action > ");
 		System.out.println("1. Add Customer");
 		System.out.println("2. View Customer");
 		System.out.println("3. Delete Customer");
+		System.out.println("4. View Highest Return Customer");
+		System.out.println("5. Add Bonus");
 	}
-	
+
 	public static void transactionMenu() {
 		System.out.println("Select action > ");
 		System.out.println("1. Add Transaction");
@@ -434,14 +465,14 @@ public class C206_CaseStudy {
 		System.out.println("3. Archive Transaction");
 		System.out.println("4. Update Transaction");
 	}
-	
+
 	public static void productMenu() {
 		System.out.println("Select action > ");
 		System.out.println("1. Add Product");
 		System.out.println("2. View Product");
 		System.out.println("3. Delete Product");
 	}
-	
+
 	public static void procedureMenu() {
 		System.out.println("Select action > ");
 		System.out.println("1. Add Procedure");
