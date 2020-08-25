@@ -248,10 +248,8 @@ public class C206_CaseStudy {
 				int bonus = Helper.readInt("Enter the customer bonus points: ");
 				customerList.get(i).addBonus(bonus);
 				System.out.println("Customer bonus reward is added");
-			} else {
-				System.out.println("Name is incorrect, please try again later. ");
-
-			}
+                                    break;
+			} 
 		}
 
 	}
