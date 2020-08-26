@@ -21,13 +21,20 @@ public class C206_CaseStudy {
 	private static final int VIEW_TRANSACTION = 2;
 	private static final int ARCHIVE_TRANSACTION = 3;
 	private static final int UPDATE_TRANSACTION = 4;
-	
-	//PRODUCT MENU CODES - Sheng En
+
+	// PRODUCT MENU CODES - Sheng En
 	private static final int ADD_PRODUCT = 1;
 	private static final int VIEW_PRODUCT = 2;
 	private static final int DELETE_PRODUCT = 3;
 	private static final int UPDATE_PRODUCT = 4;
 	private static final int RETURN_PRODUCT = 5;
+
+	// PROCEDURE MENU CODES - Leonard
+	private static final int ADD_PROCEDURE = 1;
+	private static final int VIEW_PROCEDURE = 2;
+	private static final int DELETE_PROCEDURE = 3;
+	private static final int UPDATE_PROCEDURE = 4;
+	private static final int SEARCH_PROCEDURE = 5;
 
 	public static void main(String[] args) {
 
@@ -83,11 +90,10 @@ public class C206_CaseStudy {
 
 				} else {
 					System.out.println("Invalid option");
-					
-			}
 
-			
-			// For Transaction - Soon Chuan
+				}
+
+				// For Transaction - Soon Chuan
 			} else if (option == OPTION_TRANSACTION) {
 				// menu
 				C206_CaseStudy.transactionMenu();
@@ -117,8 +123,7 @@ public class C206_CaseStudy {
 					System.out.println("Invalid option");
 				}
 
-				
-			// For Product - Sheng En
+				// For Product - Sheng En
 			} else if (option == OPTION_PRODUCT) {
 				// add product
 				C206_CaseStudy.productMenu();
@@ -139,39 +144,44 @@ public class C206_CaseStudy {
 					C206_CaseStudy.deleteProduct(productList);
 
 				} else if (option2 == UPDATE_PRODUCT) {
-					//update product
+					// update product
 					C206_CaseStudy.viewProduct(productList);
 					C206_CaseStudy.updateProduct(productList);
-					
+
 				} else if (option2 == RETURN_PRODUCT) {
-					//conditions for product returns
+					// conditions for product returns
 					C206_CaseStudy.returnProduct(productList);
-					
+
 				} else {
 					System.out.println("Invalid option");
 				}
 
-				
-			// For Procedure - Leonard
+				// For Procedure - Leonard
 			} else if (option == OPTION_PROCEDURE) {
 				// menu
 				C206_CaseStudy.procedureMenu();
 
 				option2 = Helper.readInt("Enter option to select action >  ");
 
-				if (option2 == 1) {
+				if (option2 == ADD_PROCEDURE) {
 					// add procedure
 					Procedure p = C206_CaseStudy.AddProcedure();
 					C206_CaseStudy.addProcedure(procedureList, p);
 
-				} else if (option2 == 2) {
+				} else if (option2 == VIEW_PROCEDURE) {
 					// view procedure
 					C206_CaseStudy.ViewProcedure(procedureList);
 
-				} else if (option2 == 3) {
+				} else if (option2 == DELETE_PROCEDURE) {
 					// delete procedure
 					C206_CaseStudy.RemoveProcedure(procedureList);
 
+				} else if (option2 == UPDATE_PROCEDURE) {
+					// Update procedure date
+					C206_CaseStudy.UpdateProcedure(procedureList);
+				} else if (option2 == SEARCH_PROCEDURE) {
+					// Search procedure
+					C206_CaseStudy.UpdateProcedure(procedureList);
 				} else {
 					System.out.println("Invalid option");
 				}
@@ -312,7 +322,7 @@ public class C206_CaseStudy {
 		return output;
 	}
 
-	//viewing transactions - soon chuan
+	// viewing transactions - soon chuan
 	public static void viewAllTransaction(ArrayList<Transaction> transactionList) {
 
 		String output = String.format("%-20s %-20s %-20s %-20s %-20s %-20s\n", "Customer Name", "Customer Number",
@@ -393,7 +403,7 @@ public class C206_CaseStudy {
 	// retrieving and viewing product from ArrayList - ShengEn
 	public static String retrieveAllProduct(ArrayList<product> productList) {
 		String output = "";
-		
+
 		for (int i = 0; i < productList.size(); i++) {
 			String productName = productList.get(i).getProductName();
 			double price = productList.get(i).getPrice();
@@ -404,9 +414,11 @@ public class C206_CaseStudy {
 		}
 		return output;
 	}
+
 	public static void viewProduct(ArrayList<product> productList) {
-		
-		String output = String.format("%-20s %s %-20s %-20s %-20s\n", "productName", "price", "category", "brand", "information");
+
+		String output = String.format("%-20s %s %-20s %-20s %-20s\n", "productName", "price", "category", "brand",
+				"information");
 		for (int i = 0; i < productList.size(); i++) {
 			output += retrieveAllProduct(productList);
 			System.out.println(output);
@@ -440,10 +452,10 @@ public class C206_CaseStudy {
 
 	// update product - Sheng En
 	public static void updateProduct(ArrayList<product> productList) {
-	
+
 		if (productList != null) { // check if list is empty
-			
-			int foundProduct = Helper.readInt("Enter product to update > ") -1;
+
+			int foundProduct = Helper.readInt("Enter product to update > ") - 1;
 			product updateP = productList.get(foundProduct);
 			// Ask staff for updated information
 			double price = Helper.readDouble("Enter price of product > ");
@@ -451,31 +463,30 @@ public class C206_CaseStudy {
 			String brand = Helper.readString("Enter a brand of product > ");
 			String information = Helper.readString("Enter product information > ");
 
-			// Update product 
+			// Update product
 			updateP.setPrice(price);
 			updateP.setCategory(category);
 			updateP.setBrand(brand);
 			updateP.setInformation(information);
-			
+
 			productList.set(foundProduct, updateP);
 			System.out.println("Product information has been updated!");
 		}
 
-			}
+	}
 
 	// conditional returns of product - Sheng En
 	public static void returnProduct(ArrayList<product> productList) {
 		String product = Helper.readString("Enter product to return > ");
 		// Find the product
 		int foundIdx = -1;
-		for (int i = 0; i < productList.size(); i++) { 
+		for (int i = 0; i < productList.size(); i++) {
 			product p = productList.get(i);
 			if (p.getCategory() == "food") {
 				System.out.println("Item cannot be returned!");
 				break;
 
-			} 
-			else {
+			} else {
 				System.out.println("Item may be returned!");
 				break;
 			}
@@ -486,22 +497,34 @@ public class C206_CaseStudy {
 		}
 	}
 
-	// View Procedure - Leonard
-	public static String ViewProcedure(ArrayList<Procedure> procedureList) {
+	// View Procedure and retrieve - Leonard
+	public static String retrieveAllProcedure(ArrayList<Procedure> procedureList) {
 		String output = "";
 		for (int i = 0; i < procedureList.size(); i++) {
-			output += String.format("%-84s \n", procedureList.get(i).toString());
+			String Category = procedureList.get(i).getCategory();
+			String Procedure = procedureList.get(i).getProcedure();
+			String Date = procedureList.get(i).getDate();
+			output += String.format("%-20s %-60s %-20s\n", Category, Procedure, Date);
 		}
 		return output;
 	}
 
-	// add procedure and category - Leonard
+	public static void ViewProcedure(ArrayList<Procedure> procedureList) {
+		String output = String.format("%-20s %-60s %-20s\n", "Category", "Procedure", "Date");
+		for (int i = 0; i < procedureList.size(); i++) {
+			output += retrieveAllProcedure(procedureList);
+			System.out.println(output);
+		}
+	}
+
+	// add procedure and category and date- Leonard
 	public static Procedure AddProcedure() {
 		String Category = Helper.readString("Enter category > ");
-		String Name = Helper.readString("Enter name > ");
+		String Procedure = Helper.readString("Enter name > ");
+		String Date = Helper.readString("Enter date of procedure > ");
 
-		Procedure p = new Procedure(Category, Name);
-		return p;
+		Procedure pro = new Procedure(Category, Procedure, Date);
+		return pro;
 
 	}
 
@@ -513,27 +536,39 @@ public class C206_CaseStudy {
 	// Delete Procedure - Leonard
 	public static void RemoveProcedure(ArrayList<Procedure> procedureList) {
 		C206_CaseStudy.ViewProcedure(procedureList);
-		String dcategory = Helper.readString("Enter a procedure to delete > ");
+		int deleteprocedure = Helper.readInt("Enter a procedure to delete (position in list) > ");
 		boolean check = true;
-		int i = 0;
 
-		while (i < procedureList.size()) {
-			if (procedureList.get(i).equals(dcategory)) {
-				check = true;
-				break;
-			} else {
-				check = false;
-			}
-			i++;
-		}
 		if (check == true) {
-			procedureList.remove(i);
-			System.out.println("Successfully deleted procedure");
+			procedureList.remove(deleteprocedure);
+			System.out.println("Procedure has been deleted");
 		} else {
-			System.out.println("Failed to delete procedure");
-
+			System.out.println("Error!");
 		}
+	}
 
+	// Update procedure date - Leonard
+	public static void UpdateProcedure(ArrayList<Procedure> procedureList) {
+		int ProcedureUpdate = Helper.readInt("Enter procedure to update > ");
+		Procedure UpdateProcede = procedureList.get(ProcedureUpdate);
+		String category = Helper.readString("Enter updated category > ");
+		String procedure = Helper.readString("Enter updated Procedure > ");
+		String date = Helper.readString("Enter updated Date (day/month/year >");
+
+		UpdateProcede.setCategory(category);
+		UpdateProcede.setProcedure(procedure);
+		UpdateProcede.setDate(date);
+
+		procedureList.set(ProcedureUpdate, UpdateProcede);
+		System.out.println("Procedure information successfully updated");
+
+	}
+
+	// Search a procedure - Leonard
+	public static void searchProcedure(ArrayList<Procedure> procedureList) {
+		int searchProcedure = Helper.readInt("Enter procedure position to search for (number) > ");
+		Procedure knownProcedure = procedureList.get(searchProcedure);
+		System.out.println(knownProcedure);
 	}
 
 	// MENU CODES - soon chuan
@@ -578,5 +613,8 @@ public class C206_CaseStudy {
 		System.out.println("1. Add Procedure");
 		System.out.println("2. View Procedure");
 		System.out.println("3. Delete Procedure");
+		System.out.println("4. Update Procedure Date");
+		System.out.println("5. Search Procedure");
 	}
+
 }
