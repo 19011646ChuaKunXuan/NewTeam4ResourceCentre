@@ -325,7 +325,7 @@ public class C206_CaseStudyTest {
 		assertNotNull("check if there are any items in the list to update", productList);
 		// test that after update, item can be found in the list (error)
 		product updatedP = productList.get(0);
-		updatedP.setPrice(0);
+		updatedP.setPrice(0); 
 		assertEquals("check if update item information can be found", updatedP, C206_CaseStudy.retrieveAllProduct(productList));
 	}
 	
