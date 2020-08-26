@@ -42,7 +42,8 @@ public class C206_CaseStudyTest {
 
 		// preparing test data for Transaction - soon chuan
 		tt0 = new Transaction("Ms Lim", 87654321, "John", "Biscuit", "Chocolate Biscuit", "Exchange Rejeceted");
-		tt1 = new Transaction("Mr Lee", 24356789, "Mary", "Bread", "White Bread", "Exchange Accepted");
+		//tt1 is for error test case
+		tt1 = new Transaction("Mr Lee", 24356789, "Mary123", "Bread", "White Bread", "Exchange Accepted");
 		tt2 = new Transaction("Mdm Heng", 10912456, "John", "Bottle", "Thermal flask", "Exchange Rejected");
 		transactionList = new ArrayList<Transaction>();
 		transactionList.add(tt0);
@@ -121,8 +122,9 @@ public class C206_CaseStudyTest {
 	public void viewTransactionTest() {
 		// normal: all existing transaction records should be displayed
 		String allTransaction = C206_CaseStudy.retrieveAllTransaction(transactionList);
-		String testOutput = String.format("%-10s %-30s %-10s\n", transactionList.get(0).toString());
-		testOutput += String.format("%-10s %-30s %-10s\n", transactionList.get(1).toString());
+		String testOutput = String.format("%-20s %-20s %-20s %-20s %-20s %-20s\n", transactionList.get(0).toString());
+		testOutput += String.format("%-20s %-20s %-20s %-20s %-20s %-20s\n", transactionList.get(1).toString());
+		testOutput += String.format("%-20s %-20s %-20s %-20s %-20s %-20s\n", transactionList.get(2).toString());
 
 		assertEquals("Test viewAllTransaction lis", testOutput, allTransaction);
 
@@ -150,6 +152,13 @@ public class C206_CaseStudyTest {
 		ttUpdated.setActionTaken("Exchange accepted!");
 		
 		assertFalse(transactionList.get(0).equals(ttUpdated));
+		
+		//error: handling staff name fields cannot be updated due to containing numbers
+		String errorName = "John1234";
+		tt0.setHandlingStaff(errorName);
+		
+		assertTrue(tt0.getHandlingStaff().matches("^[a-zA-Z]*$"));
+		
 		
 		//boundary: test that transaction list is not empty
 		assertNotNull("Test if there is a non-empty transaction arraylist to update existing transactions", transactionList);
