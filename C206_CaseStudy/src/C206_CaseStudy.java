@@ -312,6 +312,7 @@ public class C206_CaseStudy {
 		return output;
 	}
 
+	//viewing transactions - soon chuan
 	public static void viewAllTransaction(ArrayList<Transaction> transactionList) {
 
 		String output = String.format("%-20s %-20s %-20s %-20s %-20s %-20s\n", "Customer Name", "Customer Number",

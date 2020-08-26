@@ -1,3 +1,4 @@
+// - Kun Xuan
 public class Customer {
 
 	private String customername;
@@ -42,7 +43,7 @@ public class Customer {
 	}
 	
 	
-	//for transaction link
+	//for transaction link - Soon Chuan
 	public Customer(String customername, int customernumber) {
 		this.customername = customername;
 		this.customernumber = customernumber;
