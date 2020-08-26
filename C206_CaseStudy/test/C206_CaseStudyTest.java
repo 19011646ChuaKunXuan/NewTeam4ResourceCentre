@@ -61,9 +61,9 @@ public class C206_CaseStudyTest {
 		customerList = new ArrayList<Customer>();
 		
 		// preparing test data for product - Sheng En 
-		p1 = new product("cauliflower", 3.60, "Veg", "Giant", "1 kilogram");
-		p2 = new product("spring onion", 0.80, "Veg", "Giant", "100 grams");
-		p3 = new product("chicken wings", 2.67, "Meat", "Giant", "300 grams");
+		p1 = new product("cauliflower", 3.60, "food", "Giant", "1 kilogram");
+		p2 = new product("towel", 0.80, "toiletries", "Giant", "water absorbant");
+		p3 = new product("chicken wings", 2.67, "food", "Giant", "300 grams");
 		
 		productList = new ArrayList<product>();
 
@@ -270,7 +270,7 @@ public class C206_CaseStudyTest {
 	
 	@Test // - Sheng En
 	public void addProduct() {
-		
+		C206_CaseStudy.addProduct(productList, p1);
 		// test to check for valid arrayList (normal)
 		assertNotNull("Check if there is a valid arraylist to add to", productList);
 		// test to see if length of list is correct (boundary) 
@@ -281,12 +281,19 @@ public class C206_CaseStudyTest {
 	
 	@Test // - Sheng En 
 	public void viewProduct() {
-		
+		C206_CaseStudy.retrieveAllProduct(productList);
 		// test to see if there are products in the list (boundary)
 		assertEquals("Check that there are items in the list", productList.size());
+		// test that all items can be displayed (normal)
+		String testOutput = String.format("%-20s %s %-20s %-20s %-20s\n", productList.get(0).toString());
+		testOutput += String.format("%-20s %s %-20s %-20s %-20s\n", productList.get(1).toString());
+		assertEquals("check that all items can be displayed", testOutput);
+		// test that item searched exists in the list (error)
+		String test = "";
+		assertEquals("test that item is in the list", test, C206_CaseStudy.retrieveAllProduct(productList));
 	}
 	
-	@Test // Sheng En 
+	@Test // - Sheng En 
 	public void deleteProduct() {
 		
 		// test to see once product removed, list size decreases by 1 (normal)
@@ -296,6 +303,36 @@ public class C206_CaseStudyTest {
 		// test that once product is deleted it should no longer be in the list (error)
 		assertNotEquals("Test if there if the deleted product is still available to be displayed", 0, productList);
 		
+	}
+	
+	@Test // - Sheng En
+	public void updateProduct() {
+		C206_CaseStudy.retrieveAllProduct(productList);
+		// test that product to update is in the list (normal)
+		String test1 = productList.get(0).toString();
+		assertEquals("check if item is in the list", productList.get(1));
+		// test that if the list is empty, no updates can take place (boundary)
+		assertNotNull("check if there are any items in the list to update", productList);
+		// test that after update, displayed information should be updated (error)
+		product updatedP = productList.get(0);
+		updatedP.setProductName("");
+		updatedP.setPrice(0);
+		updatedP.setCategory("");
+		updatedP.setBrand("");
+		updatedP.setInformation("");
+		assertFalse(productList.get(0).equals(updatedP));
+	}
+	
+	@Test // - Sheng En
+	public void returnProduct() {
+		// test that if conditions are not met, product cannot be returned (normal)
+		int conditions = 0;
+		assertEquals("check that product to be returned matched conditions", productList.get(conditions));
+		// test that product return conditions cannot be viewed if list is empty (boundary)
+		assertNotNull("check that the list is not empty", productList.size());
+		// test that item has to exist in the list before it can be returned (error) 
+		String test2 = "";
+		assertEquals("test that item is in the list", test2, C206_CaseStudy.retrieveAllProduct(productList));
 	}
 
 }

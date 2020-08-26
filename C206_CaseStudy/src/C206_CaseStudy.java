@@ -389,12 +389,26 @@ public class C206_CaseStudy {
 
 	}
 
-	// view product and category - ShengEn
-	public static void viewProduct(ArrayList<product> productList) {
+	// retrieving and viewing product from ArrayList - ShengEn
+	public static String retrieveAllProduct(ArrayList<product> productList) {
+		String output = "";
+		
 		for (int i = 0; i < productList.size(); i++) {
-			product p = productList.get(i);
-			System.out.println(String.format("%-20s %s %-20s %-20s %-20s\n", "productName", "price", "category",
-					"brand", "information"));
+			String productName = productList.get(i).getProductName();
+			double price = productList.get(i).getPrice();
+			String category = productList.get(i).getCategory();
+			String brand = productList.get(i).getBrand();
+			String information = productList.get(i).getInformation();
+			output += String.format("%-20s %s %-20s %-20s %-20s\n", productName, price, category, brand, information);
+		}
+		return output;
+	}
+	public static void viewProduct(ArrayList<product> productList) {
+		
+		String output = String.format("%-20s %s %-20s %-20s %-20s\n", "productName", "price", "category", "brand", "information");
+		for (int i = 0; i < productList.size(); i++) {
+			output += retrieveAllProduct(productList);
+			System.out.println(output);
 		}
 	}
 
@@ -406,7 +420,7 @@ public class C206_CaseStudy {
 		int j = 0;
 
 		while (j < productList.size()) {
-			if (productList.get(j).equals(product)) {
+			if (productList.get(j).getProductName().equals(product)) {
 				check = true;
 				break;
 			} else {
@@ -425,53 +439,44 @@ public class C206_CaseStudy {
 
 	// update product - Sheng En
 	public static void updateProduct(ArrayList<product> productList) {
+	
+		if (productList != null) { // check if list is empty
+			
+			int foundProduct = Helper.readInt("Enter product to update > ") -1;
+			product updateP = productList.get(foundProduct);
+			// Ask staff for updated information
+			double price = Helper.readDouble("Enter price of product > ");
+			String category = Helper.readString("Enter category of product (food or toiletries?) > ");
+			String brand = Helper.readString("Enter a brand of product > ");
+			String information = Helper.readString("Enter product information > ");
 
-		String product = Helper.readString("Enter product to update > ");
-		// Find the product
-		int foundIdx = -1;
-		for (int i = 0; i < productList.size(); i++) {
-			product p = productList.get(i);
-			if (p.getProductName() == product) {
-				foundIdx = i;
-				break;
+			// Update product 
+			updateP.setPrice(price);
+			updateP.setCategory(category);
+			updateP.setBrand(brand);
+			updateP.setInformation(information);
+			
+			productList.set(foundProduct, updateP);
+			System.out.println("Product information has been updated!");
+		}
+
 			}
-		}
-		// If not found, print "No product found" and continue
-		if (foundIdx == -1) {
-			System.out.println("No product found");
-		}
-
-		// Ask staff for updated information
-		String productName = Helper.readString("Enter a product to add > ");
-		double price = Helper.readDouble("Enter price of product > ");
-		String category = Helper.readString("Enter category of product (food or toiletries?) > ");
-		String brand = Helper.readString("Enter a brand of product > ");
-		String information = Helper.readString("Enter product information > ");
-		if (price < 0) {
-			System.out.println("Invalid price");
-		}
-		// Update sales and print "Sales is updated"
-		productList.get(foundIdx).setProductName(product);
-		productList.get(foundIdx).setPrice(price);
-		productList.get(foundIdx).setCategory(category);
-		productList.get(foundIdx).setBrand(brand);
-		productList.get(foundIdx).setInformation(information);
-		System.out.println("Product information has been updated!");
-	}
 
 	// conditional returns of product - Sheng En
 	public static void returnProduct(ArrayList<product> productList) {
 		String product = Helper.readString("Enter product to return > ");
 		// Find the product
 		int foundIdx = -1;
-		for (int i = 0; i < productList.size(); i++) {
+		for (int i = 0; i < productList.size(); i++) { 
 			product p = productList.get(i);
 			if (p.getCategory() == "food") {
 				System.out.println("Item cannot be returned!");
 				break;
 
-			} else {
+			} 
+			else {
 				System.out.println("Item may be returned!");
+				break;
 			}
 
 		}
