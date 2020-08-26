@@ -318,18 +318,15 @@ public class C206_CaseStudyTest {
 	public void updateProduct() {
 		C206_CaseStudy.retrieveAllProduct(productList);
 		// test that product to update is in the list (normal)
-		String test1 = productList.get(0).toString();
-		assertEquals("check if item is in the list", productList.get(1));
+		product test2 = new product(null, 0, null, null, null);
+		productList.add(test2);
+		assertEquals("check if item is in the list", test2, C206_CaseStudy.retrieveAllProduct(productList)); 
 		// test that if the list is empty, no updates can take place (boundary)
 		assertNotNull("check if there are any items in the list to update", productList);
-		// test that after update, displayed information should be updated (error)
+		// test that after update, item can be found in the list (error)
 		product updatedP = productList.get(0);
-		updatedP.setProductName("");
 		updatedP.setPrice(0);
-		updatedP.setCategory("");
-		updatedP.setBrand("");
-		updatedP.setInformation("");
-		assertFalse(productList.get(0).equals(updatedP));
+		assertEquals("check if update item information can be found", updatedP, C206_CaseStudy.retrieveAllProduct(productList));
 	}
 	
 	@Test // - Sheng En
