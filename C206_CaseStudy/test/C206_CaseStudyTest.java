@@ -272,16 +272,15 @@ public class C206_CaseStudyTest {
 
 	@Test // - kun xuan
 	public void deletecustomerInfo() {
-		// Test if when customer information is deleted, the size of customerList will
-		// be reduced by 1 (normal)
+		// Test if when customer information is deleted, the size of customerList will be reduced by 1 (normal)
 		C206_CaseStudy.deletecustomerInfo(customerList);
-		assertEquals("Test if customer arraylist size is 0?", 0, customerList.size());
-		// customer list cannot be null when deleting a product (boundary)
+		assertEquals("Test if customer arraylist size is 1?", 1, customerList.size());
+		// customer list cannot be null when deleting a product (boundary) 
 		assertNotNull("Check if there is any customer Information to be deleted", customerList);
 		// when deleted, it should no longer be on the list (error)
 		C206_CaseStudy.deletecustomerInfo(customerList);
-		assertNotEquals("Test if there if the customer's Information is still in the customerList", 0, customerList);
-
+		assertNotEquals("Test if there if the customer's Information is still in the customerList", 1, customerList);
+		
 	}
 
 	@Test // - kun xuan
